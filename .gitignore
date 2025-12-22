@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IDEs
+.vscode
+.idea
+*.swp
+
+# OS
+.DS_Store
+
+# Streamlit
+.streamlit/secrets.toml
+
+verify_backend.py
+notebook
+# Project specific
+# We are currently tracking data and model for ease of evaluation in this college project.
+# If files become too large (>100MB), consider using git-lfs.
