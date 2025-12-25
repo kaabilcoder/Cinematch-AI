@@ -2,8 +2,6 @@
 
 **Cinematch AI** is a cutting-edge movie recommendation engine built to provide personalized movie suggestions using Deep Learning. By leveraging **Neural Collaborative Filtering (NCF)**, this application analyzes user preferences and viewing history to predict and recommend movies that users are most likely to enjoy.
 
-Ideally suited for a college capstone project, this repository demonstrates the integration of a Keras-based deep learning model with a modern, interactive web interface built using Streamlit.
-
 ---
 
 ## 🚀 Features

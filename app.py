@@ -15,77 +15,169 @@ st.set_page_config(
 # Custom CSS for "Stunning" Aesthetics
 st.markdown("""
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
     /* Global Styles */
     .stApp {
-        background-color: #0e1117;
+        background: radial-gradient(circle at 10% 20%, rgb(15, 15, 20) 0%, rgb(5, 5, 5) 90.2%);
         color: #fafafa;
+        font-family: 'Inter', sans-serif;
     }
     
     /* Typography */
-    h1, h2, h3 {
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        font-weight: 700;
-        letter-spacing: -0.02em;
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Inter', sans-serif;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        text-shadow: 0 4px 10px rgba(0,0,0,0.5);
     }
     
-    /* Card Styles */
+    /* Sidebar */
+    [data-testid="stSidebar"] {
+        background-color: rgba(20, 20, 30, 0.95);
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Card Styles - Glassmorphism */
     .movie-card {
-        background-color: #262730;
-        border-radius: 12px;
-        padding: 20px;
-        margin-bottom: 20px;
-        border: 1px solid #363945;
-        transition: transform 0.2s, box-shadow 0.2s;
+        background: rgba(40, 40, 50, 0.4);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 16px;
+        padding: 24px;
+        margin-bottom: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .movie-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
+        pointer-events: none;
     }
     
     .movie-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-        border-color: #ff4b4b;
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        border-color: rgba(255, 75, 75, 0.5);
     }
     
     .movie-title {
-        font-size: 1.1rem;
-        font-weight: 600;
-        margin-bottom: 8px;
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 10px;
         color: #ffffff;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }
     
     .movie-genre {
-        font-size: 0.85rem;
-        color: #a0a0a0;
-        margin-bottom: 12px;
+        font-size: 0.9rem;
+        color: #b0b0b0;
+        margin-bottom: 16px;
+        display: inline-block;
+        background: rgba(255,255,255,0.05);
+        padding: 4px 10px;
+        border-radius: 20px;
     }
     
     .movie-score {
-        display: inline-block;
-        padding: 4px 8px;
-        border-radius: 6px;
-        font-size: 0.8rem;
-        font-weight: 600;
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
     
-    .score-high { background-color: rgba(76, 175, 80, 0.2); color: #4caf50; }
-    .score-med { background-color: rgba(255, 193, 7, 0.2); color: #ffeb3b; }
+    .score-high { 
+        background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%); 
+        color: white; 
+    }
+    .score-med { 
+        background: linear-gradient(135deg, #ffc107 0%, #ff8f00 100%); 
+        color: black; 
+    }
     
-    /* Sidebar */
-    .css-1d391kg {
-        background-color: #1a1c24;
+    /* Footer */
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: rgba(10, 10, 10, 0.9);
+        color: #888;
+        text-align: center;
+        padding: 15px 0;
+        font-size: 0.9rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        z-index: 100;
+        backdrop-filter: blur(5px);
+    }
+    
+    .footer a {
+        color: #ff4b4b;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s;
+    }
+    
+    .footer a:hover {
+        color: #ff8f8f;
+        text-shadow: 0 0 10px rgba(255, 75, 75, 0.5);
     }
 
     /* Loading Spinner */
     .stSpinner > div {
         border-top-color: #ff4b4b !important;
     }
+    
+    /* Buttons */
+    div.stButton > button {
+        background: linear-gradient(90deg, #ff4b4b 0%, #cc0000 100%);
+        color: white;
+        border: none;
+        padding: 0.6rem 1.2rem;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s;
+        width: 100%;
+        box-shadow: 0 4px 15px rgba(255, 75, 75, 0.3);
+    }
+    
+    div.stButton > button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(255, 75, 75, 0.5);
+    }
+    
+    /* Decoration on top */
+    .top-decoration {
+        height: 4px;
+        width: 100%;
+        background: linear-gradient(90deg, #ff4b4b, #ff8f00, #4caf50);
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+    }
 </style>
+<div class="top-decoration"></div>
 """, unsafe_allow_html=True)
 
 # Application Header
 st.title("🎬 Cinematch AI")
-st.markdown("### Discover your next favorite movie with the power of Deep Learning.")
+st.markdown("<h3 style='opacity: 0.8; font-weight: 400;'>Discover your next favorite movie with the power of Deep Learning.</h3>", unsafe_allow_html=True)
 st.markdown("---")
 
 # Caching Data Loading
@@ -178,7 +270,15 @@ else:
     
     # Show some stats
     c1, c2, c3 = st.columns(3)
+
     c1.metric("Total Users", len(all_users))
     c2.metric("Total Movies", len(movie_df))
     c3.metric("Total Ratings", len(df))
+
+# Footer
+st.markdown("""
+<div class="footer">
+    <p>Made with ❤️ by <b>Saurabh Kumar Sahu</b> | <a href="https://github.com/SaurabhKumarSahu" target="_blank">Visit my GitHub</a></p>
+</div>
+""", unsafe_allow_html=True)
 

@@ -32,13 +32,6 @@ class RecommenderNet(keras.Model):
         self.user_bias = layers.Embedding(num_users, 1)
         self.movie_bias = layers.Embedding(num_movies, 1)
 
-        def build(self, input_shape):
-            self.user_embedding.build((None,))
-            self.movie_embedding.build((None,))
-            self.user_bias.build((None,))
-            self.movie_bias.build((None,))
-            super().build(input_shape)
-
     def call(self, inputs):
         user_idx = inputs[:, 0]
         movie_idx = inputs[:, 1]
